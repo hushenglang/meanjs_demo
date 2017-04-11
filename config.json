@@ -1,0 +1,5 @@
+{
+  "mongodb":{
+    "url": "mongodb://54.183.255.36:27017/meanjs_demo_db"
+  }
+}
