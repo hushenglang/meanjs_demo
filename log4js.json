@@ -1,0 +1,13 @@
+{
+  "appenders": [
+    {
+      "type": "console",
+      "level": "DEBUG"
+    },
+    {
+      "type": "file",
+      "level": "INFO",
+      "filename": "./logs/meanjs_demo.log"
+    }
+  ]
+}

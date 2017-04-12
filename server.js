@@ -1,10 +1,14 @@
-const path = require('path')
-const express = require('express')
-const bodyParser = require('body-parser')
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const config = require("./config")
+const config = require("./config");
+const log4js = require('log4js');
+log4js.configure('log4js.json')
 
 const app = express()
+
+var log = log4js.getLogger("server");
 
 //app configuration
 app.use(express.static(path.join(__dirname, 'public')))
@@ -14,21 +18,21 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 //mongodb connection configuration
 mongoose.connect(config.mongodb.url);
 mongoose.connection.on('connected', function () {
-	console.log('mongodb connect successfully ...');
+	log.info('mongodb connect successfully!');
 });
 mongoose.connection.on('error',function (err) {
-	console.log('mongodb connection error: ' + err);
+	log.error('mongodb connection error: ' + err);
 });
 mongoose.connection.on('disconnected', function () {
-	console.log('mongodb disconnected!');
+	log.warn('mongodb disconnected!');
 });
 process.on('SIGINT', function() {
+	log.warn("shut down the server...");
 	mongoose.connection.close(function () {
-		console.log('mongodb connection disconnected through app termination');
+		log.warn('mongodb connection disconnected through app termination!');
 		process.exit(0);
 	});
 });
-
 
 //register mongoose models
 require("./server/model")()
@@ -38,5 +42,5 @@ require('./server/route')(app)
 
 //start server
 app.listen(3000, function(){
-	console.log("app start...")
+	log.info("server start...");
 });
