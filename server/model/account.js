@@ -23,7 +23,7 @@ var accountSchema = mongoose.Schema({
 });
 
 accountSchema.statics.findByAccountName = function(accountName){
-    return this.find({name: accountName})
+    return this.findOne({name: accountName})
 };
 
 

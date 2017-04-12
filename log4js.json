@@ -7,7 +7,8 @@
     {
       "type": "file",
       "level": "INFO",
-      "filename": "./logs/meanjs_demo.log"
+      "filename": "./logs/localhost.log",
+      "maxLogSize": 20480
     }
   ]
 }

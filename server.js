@@ -10,10 +10,11 @@ const app = express()
 
 var log = log4js.getLogger("server");
 
-//app configuration
+//app middleware configuration for all before request
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(log4js.connectLogger(log4js.getLogger('access'), { level: log4js.levels.DEBUG })); //config log4js access log, request's http header info would be logged.
 
 //mongodb connection configuration
 mongoose.connect(config.mongodb.url);
@@ -39,6 +40,13 @@ require("./server/model")()
 
 //register routes
 require('./server/route')(app)
+
+//app middleware configuration for all after request
+app.use(function (err, req, res, next) {
+	log.error("error handlling");
+	log.error(err);
+	res.status(500).send({ error: 'Something failed!' })
+});
 
 //start server
 app.listen(3000, function(){
