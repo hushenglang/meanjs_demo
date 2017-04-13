@@ -23,21 +23,23 @@ router.get('/create', function(req, res){
  * password
  * return: token json
  */
-router.post('/login', function(req, res){
+router.post('/login', function(req, res, next){
     log.info("user login ...", req.body.username);
 	const username = req.body.username;
 	const password = req.body.password;
 	var is_success = false;
     try {
-        user = Account.findByAccountName(username);
-        log.debug(typeof(user));
-        res.send("hi");
-            //.then(function (user) {
-            //    log.debug(user);
-            //})
-            //.error(function (err) {
-            //    log.error(err);
-            //})
+        Account.findByAccountName(username)
+            .then(function(user){
+                if (user&&password == user.pwd){
+                    log.debug("account validation success!");
+                    is_success = true;
+                }else{
+                    log.debug("account validation fail!");
+                }
+                res.send(is_success);
+            })
+            .catch(next);
     }catch(err){
         log.error("login error occur!");
         throw err;

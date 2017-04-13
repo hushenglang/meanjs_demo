@@ -26,9 +26,7 @@ var accountSchema = mongoose.Schema({
 }, { collection: COLLECTION_NAME });
 
 accountSchema.statics.findByAccountName = function(accountName){
-    return this.findOne({"name": accountName}, function(err,user){
-      log.debug("user is :", user);
-    })
+    return this.findOne({"name": accountName});
 };
 
 mongoose.model('account', accountSchema);
