@@ -2,8 +2,11 @@
  * mapping to "account" collection
  *
  */
+const COLLECTION_NAME = 'account';
 
 const mongoose = require('mongoose');
+const log4js = require('log4js');
+const log = log4js.getLogger("account");
 
 // how to define index, and how to define primary-key
 var accountSchema = mongoose.Schema({
@@ -20,13 +23,14 @@ var accountSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, { collection: COLLECTION_NAME });
 
 accountSchema.statics.findByAccountName = function(accountName){
-    return this.findOne({name: accountName})
+    return this.findOne({"name": accountName}, function(err,user){
+      log.debug("user is :", user);
+    })
 };
 
-
-mongoose.model("account", accountSchema);
+mongoose.model('account', accountSchema);
 
 

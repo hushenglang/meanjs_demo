@@ -8,7 +8,7 @@ log4js.configure('log4js.json')
 
 const app = express()
 
-var log = log4js.getLogger("server");
+const log = log4js.getLogger("server");
 
 //app middleware configuration for all before request
 app.use(express.static(path.join(__dirname, 'public')))
