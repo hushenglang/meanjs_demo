@@ -1,6 +1,7 @@
 app.config(function($stateProvider) {
-    .state({
-        name: 'index',
+
+    $stateProvider.state({
+        name: 'index1',
         url: '',
         controller: ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
             $scope.isAuthenicated = $rootScope.User;
@@ -10,7 +11,7 @@ app.config(function($stateProvider) {
                 $state.go('login');
             }
         }]
-    })
+    });
 
     $stateProvider.state({
         name: 'login',
