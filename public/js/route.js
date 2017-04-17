@@ -1,7 +1,7 @@
-app.config(function($stateProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state({
-        name: 'index1',
+        name: 'default',
         url: '',
         controller: ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
             $scope.isAuthenicated = $rootScope.User;
@@ -19,4 +19,11 @@ app.config(function($stateProvider) {
         templateUrl: '../html/login.html'
     });
 
+    $stateProvider.state({
+        name: '404',
+        url: '/404',
+        templateUrl: '../html/404.html'
+    });
+
+    $urlRouterProvider.otherwise('/404');
 });
