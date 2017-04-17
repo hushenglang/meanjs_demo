@@ -1,5 +1,6 @@
 {
   "mongodb":{
-    "url": "mongodb://54.183.255.36:27017/meanjs_demo_db"
-  }
+    "url": "mongodb://52.53.193.213:27017/meanjs_demo_db"
+  },
+  "jwtSecret": "12345678"
 }

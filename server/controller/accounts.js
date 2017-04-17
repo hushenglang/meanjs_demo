@@ -17,33 +17,9 @@ router.get('/create', function(req, res){
     res.send("create success");
 });
 
-/**
- * user login.
- * username
- * password
- * return: token json
- */
-router.post('/login', function(req, res, next){
-    log.info("user login ...", req.body.username);
-	const username = req.body.username;
-	const password = req.body.password;
-	var is_success = false;
-    try {
-        Account.findByAccountName(username)
-            .then(function(user){
-                if (user&&password == user.pwd){
-                    log.debug("account validation success!");
-                    is_success = true;
-                }else{
-                    log.debug("account validation fail!");
-                }
-                res.send(is_success);
-            })
-            .catch(next);
-    }catch(err){
-        log.error("login error occur!");
-        throw err;
-    }
+router.get('/get/:username', function(){
+
 });
+
 
 module.exports = router;
